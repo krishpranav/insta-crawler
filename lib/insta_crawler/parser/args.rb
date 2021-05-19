@@ -1,4 +1,4 @@
-module InstagramCrawler
+module InstaCrawler
     module Parser
       class Args
         attr_accessor :log
@@ -27,13 +27,21 @@ module InstagramCrawler
           opts.on('-h', '--help', 'Show this message') { puts(opts); exit }
           opts.parse!(@args)
         end
-
+  
         def usage_msg
-            <<~USAGE.freeze
-            Usage:
-                insta-crawler [options]
-                See: https://github.com/krishranav/insta-crawler for more information
-            USAGE
+          <<~USAGE.freeze
+          Usage:
+            instagram-crawler [options]
+            See https://github.com/mgleon08/instagram-crawler for more information.
+          USAGE
         end
-
-    
+  
+        def validates_required_args
+          if Config.user_name.nil?
+            raise InstaCrawler::Errors::ArgError.new('-u or --username')
+          end
+        end
+      end
+    end
+  end
+  
