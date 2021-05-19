@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/instagram_crawler'
+begin
+    args = InstaCrawler::Parser::Args.new(ARGV)
+    raise InstaCrawler::Errors::EnvError if ENV["sessionid"].nil?
+    InstaCrawler::Logger.setting(args.log)
+    InstaCrawler:Main.run
+rescue => e
+    $stderr.puts e.message
+    exit
+end
